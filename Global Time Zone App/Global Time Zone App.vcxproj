@@ -128,6 +128,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Global Time Zone App.cpp" />
+    <ClCompile Include="TimeZoneManager.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\Architecure Diagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DateTime.h" />
+    <ClInclude Include="TimeZone.h" />
+    <ClInclude Include="TimeZoneManager.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
