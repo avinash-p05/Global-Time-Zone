@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "TimeZoneApiClient.h"
+#include <limits> 
 
 // Application class that uses the API client
 class TimeZoneApp {
@@ -21,6 +22,7 @@ private:
     void displayFavorites();
     void searchTimeZones();
     void displayHelp();
+	void waitForKeypress();
 
     // Config file methods
     bool loadUserConfig();

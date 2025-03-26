@@ -184,42 +184,42 @@ TimeZone TimeZoneApiClient::getCurrentTime(const std::string& zone) {
         std::cerr << "API error for " << zone << ", using local data instead" << std::endl;
     }
 
-    // Set hardcoded values but also need to set formatted time for fallbacks
-    if (zone == "UTC") {
-        result.name = "UTC";
-        result.region = "Coordinated Universal Time";
-        result.offset = 0.0;
-        result.hasDST = false;
-        result.dstActive = false;
+    //// Set hardcoded values but also need to set formatted time for fallbacks
+    //if (zone == "UTC") {
+    //    result.name = "UTC";
+    //    result.region = "Coordinated Universal Time";
+    //    result.offset = 0.0;
+    //    result.hasDST = false;
+    //    result.dstActive = false;
 
-        // Generate formatted time for UTC
-        time_t now = time(nullptr);
-        struct tm timeinfo;
-        gmtime_s(&timeinfo, &now);
-        char buffer[30];
-        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
-        result.formattedTime = buffer;
-        result.timestamp = now;
-    }
-    else if (zone == "America/New_York") {
-        // Similar hardcoded fallbacks for other zones...
-        result.name = "New York";
-        result.region = "United States (US)";
-        result.offset = -5.0;
-        result.hasDST = true;
-        result.dstActive = false;
+    //    // Generate formatted time for UTC
+    //    time_t now = time(nullptr);
+    //    struct tm timeinfo;
+    //    gmtime_s(&timeinfo, &now);
+    //    char buffer[30];
+    //    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+    //    result.formattedTime = buffer;
+    //    result.timestamp = now;
+    //}
+    //else if (zone == "America/New_York") {
+    //    // Similar hardcoded fallbacks for other zones...
+    //    result.name = "New York";
+    //    result.region = "United States (US)";
+    //    result.offset = -5.0;
+    //    result.hasDST = true;
+    //    result.dstActive = false;
 
-        // Generate a formatted time for this zone based on offset
-        time_t now = time(nullptr);
-        time_t localNow = now + static_cast<time_t>(result.offset * 3600);
-        struct tm timeinfo;
-        gmtime_s(&timeinfo, &localNow);
-        char buffer[30];
-        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
-        result.formattedTime = buffer;
-        result.timestamp = now;
-    }
-    // Continue with other hardcoded fallbacks...
+    //    // Generate a formatted time for this zone based on offset
+    //    time_t now = time(nullptr);
+    //    time_t localNow = now + static_cast<time_t>(result.offset * 3600);
+    //    struct tm timeinfo;
+    //    gmtime_s(&timeinfo, &localNow);
+    //    char buffer[30];
+    //    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+    //    result.formattedTime = buffer;
+    //    result.timestamp = now;
+    //}
+    //// Continue with other hardcoded fallbacks...
 
     return result;
 }
@@ -257,15 +257,19 @@ bool TimeZoneApiClient::convertTime(const std::string& fromZone, const std::stri
         // Convert back to human-readable time
         struct tm timeinfo_result_obj;
         gmtime_s(&timeinfo_result_obj, &timestamp);
-        struct tm* timeinfo_result = &timeinfo_result_obj;
 
-
-        if (!timeinfo_result) {
+        if (&timeinfo_result_obj == nullptr) {
             return false;
         }
 
-        // Update the time info in the target result
-        timeinfo = *timeinfo_result;
+        // Format the time into the formattedTime field
+        char buffer[30];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo_result_obj);
+        toResult.formattedTime = buffer;
+
+        // We don't need to update the timestamp from the API, but we do want
+        // to store the converted timestamp for this specific conversion
+        toResult.timestamp = timestamp;
 
         return true;
     }

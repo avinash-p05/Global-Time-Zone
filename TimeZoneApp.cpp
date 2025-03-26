@@ -10,6 +10,7 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <limits> 
 
 TimeZoneApp::TimeZoneApp(const std::string& apiKey, const std::string& configPath)
     : apiClient(apiKey), configFilePath(configPath) {
@@ -86,6 +87,7 @@ void TimeZoneApp::displayUTCTime() {
     catch (const std::exception& e) {
         std::cerr << "Error displaying UTC time: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::displayAllTimeZones() {
@@ -132,7 +134,7 @@ void TimeZoneApp::displayAllTimeZones() {
                 tz.code.find("Asia/Tokyo") != std::string::npos ||
                 tz.code.find("Asia/Kolkata") != std::string::npos) {
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
                 // Get current time for this zone
                 TimeZone currentTime = apiClient.getCurrentTime(tz.code);
@@ -168,6 +170,7 @@ void TimeZoneApp::displayAllTimeZones() {
     catch (const std::exception& e) {
         std::cerr << "Error displaying time zones: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::displayTimeZone(const std::string& code) {
@@ -197,6 +200,7 @@ void TimeZoneApp::displayTimeZone(const std::string& code) {
     catch (const std::exception& e) {
         std::cerr << "Error displaying time zone: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::convertTime() {
@@ -249,6 +253,7 @@ void TimeZoneApp::convertTime() {
         std::cin.ignore(10000, '\n');  // Clear input buffer
         std::cout << "Invalid input: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::displayFavorites() {
@@ -291,6 +296,7 @@ void TimeZoneApp::displayFavorites() {
             std::cout << std::endl;
         }
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::manageFavorites() {
@@ -326,6 +332,7 @@ void TimeZoneApp::manageFavorites() {
     catch (const std::exception& e) {
         std::cerr << "Error managing favorites: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::searchTimeZones() {
@@ -391,6 +398,7 @@ void TimeZoneApp::searchTimeZones() {
     catch (const std::exception& e) {
         std::cerr << "Error searching time zones: " << e.what() << std::endl;
     }
+    waitForKeypress();
 }
 
 void TimeZoneApp::displayHelp() {
@@ -443,6 +451,8 @@ void TimeZoneApp::displayHelp() {
     std::cout << std::endl;
 
     std::cout << "Use the search feature to find more time zones." << std::endl;
+
+    waitForKeypress();
 }
 
 void TimeZoneApp::run() {
@@ -522,3 +532,12 @@ void TimeZoneApp::run() {
 
     } while (choice != 9);
 }
+
+void TimeZoneApp::waitForKeypress() {
+    std::cout << "\nPress Enter to continue...";
+    std::cin.ignore(9223372036854775807, '\n');
+}
+
+//9223372036854775807: This is the maximum value for std::streamsize on a 64-bit system.
+// By using this value directly, you ensure that the 
+//ignore function will skip all characters until the newline character is encountered.
