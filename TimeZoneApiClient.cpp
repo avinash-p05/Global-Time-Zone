@@ -185,41 +185,77 @@ TimeZone TimeZoneApiClient::getCurrentTime(const std::string& zone) {
     }
 
     //// Set hardcoded values but also need to set formatted time for fallbacks
-    //if (zone == "UTC") {
-    //    result.name = "UTC";
-    //    result.region = "Coordinated Universal Time";
-    //    result.offset = 0.0;
-    //    result.hasDST = false;
-    //    result.dstActive = false;
+    if (zone == "UTC") {
+       result.name = "UTC";
+       result.region = "Coordinated Universal Time";
+        result.offset = 0.0;
+        result.hasDST = false;
+       result.dstActive = false;
 
-    //    // Generate formatted time for UTC
-    //    time_t now = time(nullptr);
-    //    struct tm timeinfo;
-    //    gmtime_s(&timeinfo, &now);
-    //    char buffer[30];
-    //    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
-    //    result.formattedTime = buffer;
-    //    result.timestamp = now;
-    //}
-    //else if (zone == "America/New_York") {
-    //    // Similar hardcoded fallbacks for other zones...
-    //    result.name = "New York";
-    //    result.region = "United States (US)";
-    //    result.offset = -5.0;
-    //    result.hasDST = true;
-    //    result.dstActive = false;
+        // Generate formatted time for UTC
+        time_t now = time(nullptr);
+        struct tm timeinfo;
+        gmtime_s(&timeinfo, &now);
+        char buffer[30];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+        result.formattedTime = buffer;
+        result.timestamp = now;
+    }
+    else if (zone == "America/New_York") {
+        // Similar hardcoded fallbacks for other zones...
+        result.name = "New York";
+        result.region = "United States (US)";
+        result.offset = -5.0;
+        result.hasDST = true;
+        result.dstActive = false;
 
-    //    // Generate a formatted time for this zone based on offset
-    //    time_t now = time(nullptr);
-    //    time_t localNow = now + static_cast<time_t>(result.offset * 3600);
-    //    struct tm timeinfo;
-    //    gmtime_s(&timeinfo, &localNow);
-    //    char buffer[30];
-    //    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
-    //    result.formattedTime = buffer;
-    //    result.timestamp = now;
-    //}
-    //// Continue with other hardcoded fallbacks...
+        // Generate a formatted time for this zone based on offset
+        time_t now = time(nullptr);
+        time_t localNow = now + static_cast<time_t>(result.offset * 3600);
+        struct tm timeinfo;
+        gmtime_s(&timeinfo, &localNow);
+        char buffer[30];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+        result.formattedTime = buffer;
+        result.timestamp = now;
+    }
+    else if (zone == "Europe/London") {
+        // Fallback for London if API is unavailable
+        result.name = "London";
+        result.region = "United Kingdom (GB)";
+        result.offset = 0.0;  // GMT/UTC (during standard time)
+        result.hasDST = true;
+        result.dstActive = false;
+
+        // Generate a formatted time for this zone based on offset
+        time_t now = time(nullptr);
+        time_t localNow = now + static_cast<time_t>(result.offset * 3600);
+        struct tm timeinfo;
+        gmtime_s(&timeinfo, &localNow);
+        char buffer[30];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+        result.formattedTime = buffer;
+        result.timestamp = now;
+    }
+    else if (zone == "Europe/Paris") {
+        // Fallback for Paris if API is unavailable
+        result.name = "Paris";
+        result.region = "France (FR)";
+        result.offset = 1.0;  // CET (during standard time)
+        result.hasDST = true;
+        result.dstActive = false;
+
+        // Generate a formatted time for this zone based on offset
+        time_t now = time(nullptr);
+        time_t localNow = now + static_cast<time_t>(result.offset * 3600);
+        struct tm timeinfo;
+        gmtime_s(&timeinfo, &localNow);
+        char buffer[30];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &timeinfo);
+        result.formattedTime = buffer;
+        result.timestamp = now;
+    }
+    // Continue with other hardcoded fallbacks...
 
     return result;
 }

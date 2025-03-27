@@ -1,6 +1,5 @@
 // main.cpp
 // Entry point for the Time Zone Application
-// Visual Studio C++14 compatible version
 
 #include "TimeZoneApp.h"
 #include <iostream>

@@ -134,10 +134,10 @@ void TimeZoneApp::displayAllTimeZones() {
                 tz.code.find("Asia/Tokyo") != std::string::npos ||
                 tz.code.find("Asia/Kolkata") != std::string::npos) {
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
                 // Get current time for this zone
                 TimeZone currentTime = apiClient.getCurrentTime(tz.code);
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
                 // Use the formatted time directly from the API
                 std::string timeStr = currentTime.formattedTime;
