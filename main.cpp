@@ -46,7 +46,7 @@ int main() {
 
     try {
         // Replace with your actual API key from TimeZoneDB
-        const std::string API_KEY = "SRYQU1B6TP23";
+        const std::string API_KEY = "XXXXXXXXXXXX";
 
         // Create data directory if it doesn't exist
         if (!directoryExists("data")) {
