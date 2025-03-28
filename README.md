@@ -136,7 +136,7 @@ User configuration, including favorites, is stored in a JSON file at `data/user_
 
 ## Author
 
-Avinash Pauskar
+Avinash Pauskar - R&D Intern @Esko
 
 ## Acknowledgments
 
