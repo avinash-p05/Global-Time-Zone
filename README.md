@@ -12,15 +12,30 @@ A C++ command-line utility for accessing accurate global time zone information u
 - Save and manage favorite time zones for quick access
 
 ## Screenshots
-
+See Current UTC time - 
 ![image](https://github.com/user-attachments/assets/fd51dfe5-b8e6-4515-940e-9d3c003dcf85)
+
+View Current time in major time zones -
 ![image](https://github.com/user-attachments/assets/66209ad0-20f4-4c7a-a6b0-889a7aef4ba9)
+
+View Current time in a specific time zone -
 ![image](https://github.com/user-attachments/assets/1510fa42-0485-4723-8290-ac69f37313f8)
+
+Convert time between time zones - 
 ![image](https://github.com/user-attachments/assets/d36af854-6258-4ff0-920c-d77298752812)
+
+Manage Favorite time zones - 
 ![image](https://github.com/user-attachments/assets/a7e74320-ff9a-4b70-9683-76539b915789)
+
+View Favorite time zones -
 ![image](https://github.com/user-attachments/assets/885d3a71-3701-46f2-a91d-30b70b0a4c30)
+
+Search time zones - 
 ![image](https://github.com/user-attachments/assets/5ce0260b-2d88-4c7a-a956-81456c7c35c3)
+
+Help -
 ![image](https://github.com/user-attachments/assets/5b6c9796-979a-4245-801e-fa8c9834d2ac)
+
 
 ## Technologies Used
 
