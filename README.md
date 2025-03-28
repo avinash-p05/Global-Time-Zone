@@ -13,9 +13,11 @@ A C++ command-line utility for accessing accurate global time zone information u
 
 ## Screenshots
 See Current UTC time - 
+
 ![image](https://github.com/user-attachments/assets/fd51dfe5-b8e6-4515-940e-9d3c003dcf85)
 
 View Current time in major time zones -
+
 ![image](https://github.com/user-attachments/assets/66209ad0-20f4-4c7a-a6b0-889a7aef4ba9)
 
 View Current time in a specific time zone -
